@@ -22,7 +22,7 @@ public class DefaultDeployment {
     public DefaultDeployment() {
         webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
         		EmptyAsset.INSTANCE, "beans.xml")
-        		.addPackages(true, "com.pelopiti.sandbox")
+        		.addPackages(true, "com.example.sandbox")
         		.addAsLibraries(resolver.includeDependenciesFromPom("pom.xml").resolveAsFiles())
         		//.addAsResource("log4j-test.xml", "log4j.xml")
                 ;
@@ -33,8 +33,7 @@ public class DefaultDeployment {
 
     	     	
         webArchive = webArchive.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-        		//.addAsResource("ehcache/ehcache.xml", "ehcache/ehcache.xml")
-        		
+        		.addAsResource("ehcache/ehcache.xml", "ehcache/ehcache.xml")
         		//.addAsWebInfResource("test-ds.xml", "test-ds.xml")
         		;
         return this;

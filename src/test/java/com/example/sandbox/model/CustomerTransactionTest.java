@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.PersistenceTest;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,8 +17,7 @@ import org.junit.runner.RunWith;
 import com.example.sandbox.bo.CustomerBO;
 
 @RunWith(Arquillian.class)
-@PersistenceTest
-public class CustomerTest
+public class CustomerTransactionTest
 {
 	@Inject
 	private Customer customer;
@@ -49,6 +48,7 @@ public class CustomerTest
 	}
 
 	@Test
+	@Transactional
 	public void testCreate()
 	{
 		Customer customer =  new Customer();
@@ -61,6 +61,7 @@ public class CustomerTest
 	}
 
 	@Test
+	@Transactional
 	public void testCustomerBO()
 	{
 		
@@ -72,7 +73,6 @@ public class CustomerTest
 		Assert.assertNotNull(customer.getId());
 	}
 	 
-	
 
 
 

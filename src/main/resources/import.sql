@@ -1,1 +1,1 @@
-INSERT INTO CUSTOMER values ('tEST', 'teST');
+INSERT INTO CUSTOMER (id, firstName, lastName) values (10, 'tEST', 'teST');
