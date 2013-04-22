@@ -1,0 +1,1 @@
+INSERT INTO CUSTOMER values ('tEST', 'teST');

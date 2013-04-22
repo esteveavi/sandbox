@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+	<container qualifier="jbossas-managed" default="true">
+		<configuration>
+			<property name="jbossHome">/servers/jboss-as-7.1.1.Final-staging</property>
+			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=128m -Xverify:none -XX:+UseFastAccessorMethods</property>
+			<property name="outputToConsole">true</property>
+		</configuration>
+	</container>
+	
+	 
+	<extension qualifier="transaction">
+		<property name="manager">java:jboss/UserTransaction</property>
+	</extension>
+ 
+</arquillian>
+
+
