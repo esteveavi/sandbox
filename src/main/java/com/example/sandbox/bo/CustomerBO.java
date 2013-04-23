@@ -18,5 +18,9 @@ public class CustomerBO {
 		entityManager.persist(customer);
 		return customer;
 	}
+	
+	public Customer getCustomer(Long id){
+		return entityManager.find(Customer.class, id);
+	}
 
 }

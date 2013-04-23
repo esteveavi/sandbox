@@ -7,7 +7,7 @@
 
 	<container qualifier="arq-jboss_as_managed_7.x" default="true">
 		<configuration>
-			<property name="jbossHome">c:/servers/jboss-as-7.1.1.Final-ci</property>
+			<property name="jbossHome">/servers/jboss-as-7.1.1.Final-staging</property>
 			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=256m -Xverify:none -XX:+UseFastAccessorMethods</property>
 			<property name="outputToConsole">true</property>
 		</configuration>

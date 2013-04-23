@@ -8,16 +8,18 @@ import javax.persistence.PersistenceContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.PersistenceTest;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.example.sandbox.bo.CustomerBO;
-/* mvn test -Dtest=CustomerTransactionTest -Parq-jboss_as_managed_7.x */
+import com.example.sandbox.bo.CustomerPersistenceUtilBO;
+/* mvn test -Dtest=CustomerTransactionPersistenceUtilTest -Parq-jboss_as_managed_7.x */
 @RunWith(Arquillian.class)
-public class CustomerTransactionTest
+//@PersistenceTest
+public class CustomerTransactionPersistenceUtilTest
 {
 	@Inject
 	private Customer customer;
@@ -34,31 +36,18 @@ public class CustomerTransactionTest
 
 
 
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	@Inject
-	private CustomerBO customerBO;
+	private CustomerPersistenceUtilBO customerBO;
 
 	@Test
+	@Transactional
 	public void testIsDeployed()
 	{
 		Assert.assertNotNull(customer);
 		Assert.assertNotNull(customerBO);
 	}
 
-	@Test
-	@Transactional
-	public void testCreate()
-	{
-		Customer customer =  new Customer();
-		customer.setFirstName("Test 1");
-		customer.setLastName("Testa ");
-		customer.setCreationDate(new Date());
-		entityManager.persist(customer);
-		entityManager.flush();
-		Assert.assertNotNull(customer.getId());
-	}
 
 	@Test
 	@Transactional
@@ -75,7 +64,6 @@ public class CustomerTransactionTest
 	 
 
 	@Test
-	@Transactional
 	public void testFindCustomerBO()
 	{
 		Customer customer = customerBO.getCustomer(new Long(1));
