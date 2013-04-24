@@ -1,0 +1,85 @@
+package com.example.sandbox.model;
+
+import java.util.Date;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.PersistenceTest;
+import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.example.sandbox.bo.CustomerBO;
+/* mvn test -Dtest=CustomerPersistenceTest -Parq-jboss_as_managed_7.x */
+@RunWith(Arquillian.class)
+@PersistenceTest
+public class CustomerPersistenceTest
+{
+	@Inject
+	private Customer customer;
+
+	@Deployment
+	public static Archive<?> createDeployment() {
+		return new DefaultDeployment().
+				withPersistence().
+				withImportedData().
+				getArchive()
+				.addPackages(true, Customer.class.getPackage())
+				;
+	}
+
+
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Inject
+	private CustomerBO customerBO;
+
+	@Test
+	public void testIsDeployed()
+	{
+		Assert.assertNotNull(customer);
+		Assert.assertNotNull(customerBO);
+	}
+
+	@Test
+	public void testCreate()
+	{
+		Customer customer =  new Customer();
+		customer.setFirstName("Test 1");
+		customer.setLastName("Testa ");
+		customer.setCreationDate(new Date());
+		entityManager.persist(customer);
+		entityManager.flush();
+		Assert.assertNotNull(customer.getId());
+	}
+
+	@Test
+	public void testCustomerBO()
+	{
+		
+		Customer customer =  new Customer();
+		customer.setFirstName("Test 1");
+		customer.setLastName("Testa ");
+		customer.setCreationDate(new Date());
+		customerBO.createCustomer(customer);
+		Assert.assertNotNull(customer.getId());
+	}
+	 
+
+	@Test
+	public void testFindCustomerBO()
+	{
+		Customer customer = customerBO.getCustomer(new Long(1));
+		Assert.assertNotNull(customer);
+	}
+	 
+
+
+}

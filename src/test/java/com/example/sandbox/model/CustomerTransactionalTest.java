@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.example.sandbox.bo.CustomerBO;
-/* mvn test -Dtest=CustomerTransactionTest -Parq-jboss_as_managed_7.x */
+/* mvn test -Dtest=CustomerTransactionalTest -Parq-jboss_as_managed_7.x */
 @RunWith(Arquillian.class)
-public class CustomerTransactionTest
+public class CustomerTransactionalTest
 {
 	@Inject
 	private Customer customer;
